@@ -15,11 +15,11 @@ public class Program
     }
 
     private static void RegisterRoutes(ref WebApplication app) {
-        RouteManager routeManager = new routes.RouteManager(ref app);
+        RouteManager routeManager = new RouteManager(ref app);
 
-        routeManager.RegisterRoute(new routes.RouteData {
+        routeManager.RegisterRoute(new RouteData {
             Path = "/",
-            Method = routes.HttpMethod.Get
+            Method = HttpMethod.Get
         }, async (req, res) => {
             await res.WriteAsync("Hello, world!");
         });
