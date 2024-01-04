@@ -1,6 +1,8 @@
 namespace Devblogs.Routes.Posts;
 
 using Devblogs.Core.Routing;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 public class PostsRoute : IRoute {
   public RouteData RouteData { get; } = new RouteData {
@@ -9,6 +11,18 @@ public class PostsRoute : IRoute {
   };
 
   public Func<HttpRequest, HttpResponse, Task> Handler { get; } = async (req, res) => {
-    await res.WriteAsync(req.Headers["User-Agent"].ToString());
+    using var db = new BlogContext();
+
+    if (db.Posts == null) {
+      await res.WriteAsync("No posts found!");
+      return;
+    }
+
+    // todo: implement pagination
+    var posts = await db.Posts.ToListAsync();
+
+    await res.WriteAsync(JsonSerializer.Serialize(posts, new JsonSerializerOptions {
+      WriteIndented = true
+    }));
   };
 }
