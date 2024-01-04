@@ -1,4 +1,4 @@
-namespace Devblogs.Routes;
+namespace Devblogs.Routes.Posts;
 
 using Devblogs.Core.Routing;
 
@@ -9,6 +9,6 @@ public class PostsRoute : IRoute {
   };
 
   public Func<HttpRequest, HttpResponse, Task> Handler { get; } = async (req, res) => {
-    await res.WriteAsync("Hello, world!");
+    await res.WriteAsync(req.Headers["User-Agent"].ToString());
   };
 }
