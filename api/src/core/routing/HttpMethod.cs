@@ -1,4 +1,4 @@
-namespace routes;
+namespace Devblogs.Core.Routing;
 
 /// <summary>
 /// Custom enumeration for HTTP methods. I would have used the built-in one, but it's not an enum,

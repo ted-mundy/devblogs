@@ -1,6 +1,7 @@
-namespace api;
+namespace Devblogs;
 
-using routes;
+using Devblogs.Core.Routing;
+using Devblogs.Routes;
 
 public class Program
 {
@@ -15,13 +16,9 @@ public class Program
     }
 
     private static void RegisterRoutes(ref WebApplication app) {
-        RouteManager routeManager = new RouteManager(ref app);
+        var routeManager = new RouteManager(ref app);
 
-        routeManager.RegisterRoute(new RouteData {
-            Path = "/",
-            Method = HttpMethod.Get
-        }, async (req, res) => {
-            await res.WriteAsync("Hello, world!");
-        });
+        // GET /posts
+        routeManager.RegisterRoute(new PostsRoute());
     }
 }

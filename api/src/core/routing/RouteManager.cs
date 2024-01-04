@@ -1,4 +1,4 @@
-namespace routes;
+namespace Devblogs.Core.Routing;
 
 public class RouteManager {
   private static RouteManager? instance;
@@ -39,5 +39,9 @@ public class RouteManager {
       default:
         throw new Exception("Invalid HTTP method! How have you even managed to do this?");
     }
+  }
+
+  public void RegisterRoute(IRoute routeClass) {
+    RegisterRoute(routeClass.RouteData, routeClass.Handler);
   }
 }

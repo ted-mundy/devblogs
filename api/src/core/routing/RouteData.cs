@@ -1,4 +1,4 @@
-namespace routes;
+namespace Devblogs.Core.Routing;
 
 public struct RouteData {
   public string Path;
