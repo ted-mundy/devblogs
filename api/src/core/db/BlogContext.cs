@@ -15,6 +15,7 @@ public class BlogContext : DbContext {
     DbPath = path;
   }
 
+  // todo: sort this method out, and prepare for production/different environments.
   protected override void OnConfiguring(DbContextOptionsBuilder options)
       => options.UseSqlite($"Data Source={DbPath}");
 }
