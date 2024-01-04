@@ -14,5 +14,4 @@ The Celery workers will be on a schedule (using Beat) to grab new posts from eit
 
 The API will use a Postgres database to store everything.
 
-Everything needs to be "component-based". Say for example we need to change DB to a cloud-based DB such as an Azure service. This should be *relatively* easy to do.
-
+This will save da world and improve the knowledge of the children
