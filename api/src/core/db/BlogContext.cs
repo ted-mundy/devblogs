@@ -1,3 +1,5 @@
+namespace Devblogs.Core.Db;
+
 using Microsoft.EntityFrameworkCore;
 using Devblogs.Models.BlogSource;
 using Devblogs.Models.Post;
