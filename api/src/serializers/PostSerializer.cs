@@ -34,6 +34,6 @@ class PostSerializer : Serializer {
             serializedPosts.Add(new PostSerializer(post).Serialize());
         }
 
-        return new PaginatedObject<Dictionary<string, object>>(serializedPosts, obj.Page, obj.PageSize, obj.TotalPages, obj.TotalItems);
+        return new PaginatedObject<Dictionary<string, object>>(serializedPosts, obj.TotalItems, obj.Page, obj.PageSize, obj.TotalPages);
     }
 }

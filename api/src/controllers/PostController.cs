@@ -24,6 +24,10 @@ class PostController {
 
     IQueryable<Post> query = context.Posts;
 
+    if (splitFilter.Length == 0) {
+      return PaginatedObject<Post>.PaginateQueryable(query, page, pageSize);
+    }
+
     foreach (string word in splitFilter) {
       query = query.Where(post => post.Title.Contains(word) || post.Content.Contains(word) || post.OriginalUrl.Contains(word));
     }

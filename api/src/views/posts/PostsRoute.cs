@@ -1,7 +1,6 @@
 namespace Devblogs.Routes.Posts;
 
 using Devblogs.Core.Routing;
-using System.Text.Json;
 using Devblogs.Controllers.Post;
 using Devblogs.Models.Post;
 
@@ -12,29 +11,25 @@ public class PostsRoute : IRoute {
   };
 
   public Func<HttpRequest, HttpResponse, Task> Handler { get; } = async (req, res) => {
-    // using var db = new BlogContext();
+    // req.Query.TryGetValue("filter", out var filterString);
+    // req.Query.TryGetValue("page", out var pageString);
 
-    // if (db.Posts == null) {
-    //   await res.WriteAsync("No posts found!");
-    //   return;
+    // if (pageString == null) {
+    //   pageString = "1";
     // }
 
-    // // todo: implement pagination
-    // var posts = await db.Posts.ToListAsync();
+    string? filterString = req.Query["filter"];
+    string? pageString = req.Query["page"];
 
-    // await res.WriteAsync(JsonSerializer.Serialize(posts, new JsonSerializerOptions {
-    //   WriteIndented = true
-    // }));
+    filterString ??= "";
+    pageString ??= "1";
 
-    string filterString = req.Query.TryGetValue("filter", out var filter) ? filter : "";
-    string pageString = req.Query.TryGetValue("page", out var page) ? page : "1";
     int pageInt = 1;
 
     try {
       pageInt = int.Parse(pageString);
     } catch (FormatException) {
-      await res.WriteAsync("Invalid page number!");
-      return;
+      // * If the page number is not a number, we'll just default to 1.
     }
 
     PaginatedObject<Post>? posts = PostController.FilterPosts(filterString, pageInt);

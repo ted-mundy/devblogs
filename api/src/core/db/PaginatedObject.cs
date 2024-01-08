@@ -17,12 +17,16 @@ public class PaginatedObject<T> {
     int totalItems = queryable.Count();
     int totalPages = (int) Math.Ceiling((double) totalItems / pageSize);
 
+    page = Math.Max(page, 1);
+
     List<T> items = queryable
       .Skip((page - 1) * pageSize)
       .Take(pageSize)
       .ToList();
 
-    PaginatedObject<T> paginatedItems = new(items, totalItems, page, pageSize, totalPages);
+    int actualPage = Math.Min(page, totalPages);
+
+    PaginatedObject<T> paginatedItems = new(items, totalItems, actualPage, pageSize, totalPages);
 
     return paginatedItems;
   }
