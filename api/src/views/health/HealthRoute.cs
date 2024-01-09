@@ -6,7 +6,8 @@ using System.Text.Json;
 public class HealthRoute : IRoute {
   public RouteData RouteData { get; } = new RouteData {
     Path = "",
-    Method = HttpMethod.Get
+    Method = HttpMethod.Get,
+    RateLimited = false
   };
 
   public Func<HttpRequest, HttpResponse, Task> Handler { get; } = async (req, res) => {

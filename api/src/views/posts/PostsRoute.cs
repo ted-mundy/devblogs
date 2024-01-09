@@ -7,7 +7,8 @@ using Devblogs.Models.Post;
 public class PostsRoute : IRoute {
   public RouteData RouteData { get; } = new RouteData {
     Path = "/posts",
-    Method = HttpMethod.Get
+    Method = HttpMethod.Get,
+    RateLimited = true
   };
 
   public Func<HttpRequest, HttpResponse, Task> Handler { get; } = async (req, res) => {

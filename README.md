@@ -1,5 +1,7 @@
 # devblogs
 
+Think of it as a prettier HackerNews
+
 ## Architecture
 
 This is a monorepo, which contains everything neccessary to run an instance of the application.

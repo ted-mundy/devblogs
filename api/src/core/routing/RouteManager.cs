@@ -23,21 +23,28 @@ public class RouteManager {
   }
 
   public void RegisterRoute(RouteData routeData, Func<HttpRequest, HttpResponse, Task> handler) {
+    RouteHandlerBuilder? builder = null;
     switch (routeData.Method) {
       case HttpMethod.Get:
-        application.MapGet(routeData.Path, handler);
+        builder = application.MapGet(routeData.Path, handler);
         break;
       case HttpMethod.Put:
-        application.MapPut(routeData.Path, handler);
+        builder = application.MapPut(routeData.Path, handler);
         break;
       case HttpMethod.Delete:
-        application.MapDelete(routeData.Path, handler);
+        builder = application.MapDelete(routeData.Path, handler);
         break;
       case HttpMethod.Post:
-        application.MapPost(routeData.Path, handler);
+        builder = application.MapPost(routeData.Path, handler);
         break;
       default:
         throw new Exception("Invalid HTTP method! How have you even managed to do this?");
+    }
+
+    if (routeData.RateLimited) {
+      const string rateLimitingPolicyName = "default";
+
+      builder.RequireRateLimiting(rateLimitingPolicyName);
     }
   }
 
