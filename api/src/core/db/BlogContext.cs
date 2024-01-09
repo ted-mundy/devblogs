@@ -18,6 +18,19 @@ public class BlogContext : DbContext {
   }
 
   // todo: sort this method out, and prepare for production/different environments.
-  protected override void OnConfiguring(DbContextOptionsBuilder options)
-      => options.UseSqlite($"Data Source={DbPath}");
+  protected override void OnConfiguring(DbContextOptionsBuilder options) {
+    var isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development;
+
+    if (isDevelopment) {
+      options.UseSqlite($"Data Source={DbPath}");
+      return;
+    }
+
+    string? connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+
+    if (connectionString == null) throw new Exception("No DB_CONNECTION_STRING environment variable found!");
+
+    // we use postgres :p
+    options.UseNpgsql(connectionString);
+  }
 }
